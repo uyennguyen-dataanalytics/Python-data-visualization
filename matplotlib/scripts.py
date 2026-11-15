@@ -166,7 +166,7 @@ result = plot_bmi_scatter()
 print (f"Patients with a BMI of 25 or more: {result}")
 
 #-----------------------------------------------------------------------------------------------------------------
-# 5. Create a hosputal ward dashboard
+# 6. Create a hosputal ward dashboard
 #-----------------------------------------------------------------------------------------------------------------
 def plot_dashboard():
     """Create a dashboard in 2x2 grid, containing four charts in one figure.
