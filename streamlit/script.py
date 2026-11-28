@@ -17,7 +17,7 @@ visits = load_data()
 # Display DataFrame "visists" as an interactive table
 st.dataframe(visits)
 
-# Calculate the key figuré for the dashboard
+# Calculate the key figures for the dashboard
 def key_figures(df):
     """Calculate key figures for the dashboard"""
     total_visits = len(df)
@@ -28,31 +28,6 @@ def key_figures(df):
 
 # Call function and store values in variable "key"
 key = key_figures(visits)
-
-# Comment out because this part will be moved to the part below to create tabs in dashboard
-# with st.container(border=True):
-#     col1, col2, col3, col4 = st.columns(4)
-#     col1.metric(label="Total visits", value=key[0])
-#     col2.metric(label="Average wait", value=f"{key[1]:.1f} min")
-#     col3.metric(label="Admitted", value=f"{key[2]:.1f}%")
-#     col4.metric(label="Seen within 4 hours", value=f"{key[3]:.1f}%")
-
-
-#---------------------------------------------------------------------------------------
-# Task 4: Build-in charts
-
-# Comment out because this part will be moved to the part below to create tabs in dashboard
-# st.subheader("Visits per day")
-# visits_per_day = (visits.groupby("date").size().reset_index(name="visits_per_day"))
-# st.line_chart(visits_per_day, x="date", y="visits_per_day")
-
-# st.subheader("Visits by arrival hour")
-# visits_per_hour = (visits.groupby("arrival_hour").size().reset_index(name="visits_per_hour"))
-# st.bar_chart(visits_per_hour, x="arrival_hour", y="visits_per_hour", alt="Number of visit each arrival hour")
-
-
-#---------------------------------------------------------------------------------------
-# Task 5: Filtering with the sidebar
 
 # Add sidebar
 st.sidebar.header("Filters")
@@ -73,28 +48,7 @@ if filtered.empty:
     st.warning("No visits match the filters")
     st.stop()
 
-
-# Change the metrics in Task 3 and Task 4, use DataFrame "filtered"
-# Comment out because this part will be moved to the part below to create tabs in dashboard
-# key = key_figures(filtered)
-# with st.container(border=True):
-#     col1, col2, col3, col4 = st.columns(4)
-#     col1.metric(label="Total visits", value=key[0])
-#     col2.metric(label="Average wait", value=f"{key[1]:.1f} min")
-#     col3.metric(label="Admitted", value=f"{key[2]:.1f}%")
-#     col4.metric(label="Seen within 4 hours", value=f"{key[3]:.1f}%")
-
-# Comment out because this part will be moved to the part below to create tabs in dashboard
-# st.subheader("Visits per day")
-# visits_per_day = (filtered.groupby("date").size().reset_index(name="visits_per_day"))
-# st.line_chart(visits_per_day, x="date", y="visits_per_day", x_label="Date", y_label="Number of visits")
-
-# st.subheader("Visits by arrival hour")
-# visits_per_hour = (filtered.groupby("arrival_hour").size().reset_index(name="visits_per_hour"))
-# st.bar_chart(visits_per_hour, x="arrival_hour", y="visits_per_hour", x_label="Arrival hour", y_label="Number of visits")
-
-
-
+# Create a histogram showing distribution of waiting times
 def wait_histogram(df):
     """Create a histogram showing distribution of waiting times, with a vertical line marking 4-hour target"""
     fig1, ax1 = plt.subplots()
@@ -105,8 +59,8 @@ def wait_histogram(df):
     ax1.set_ylabel("Number of patients")
     ax1.legend()
     return fig1
-#st.pyplot(wait_histogram(filtered))
 
+# Create a bar chart showing the average waiting times for each triage category
 def wait_bar_chart(df):
     """Create a bar chart showing the average waiting times for each triage category"""
     fig2, ax2 = plt.subplots()
@@ -117,10 +71,8 @@ def wait_bar_chart(df):
     ax2.set_ylabel("Average wait (minutes)")
     ax2.set_xticks([1, 2, 3, 4, 5])
     return fig2
-#st.pyplot(wait_bar_chart(filtered))
 
-# Create layout for the dashboard and downloading data
-
+# Create layout for the dashboard and button for dowwnloading data
 tab1, tab2, tab3 = st.tabs(["Overview", "Waiting times", "Data"])
 
 # Fill tab 'Overview" with the key metrics: Total visits, Average wait, Admitted, Seen within 4 hours
