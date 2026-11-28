@@ -1,0 +1,3 @@
+panđas
+matplotlib
+streamlit
